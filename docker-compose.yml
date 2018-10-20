@@ -15,7 +15,7 @@ services:
       - "nginx_certs:/etc/nginx/certs:ro"
     links:
       - lightning-charged
-    
+
   nginx-gen:
     restart: always
     image: jwilder/docker-gen
@@ -50,7 +50,7 @@ services:
 
   lightning-charged:
     restart: always
-    image: shesek/lightning-charge:0.3.15
+    image: shesek/lightning-charge
     environment:
       NETWORK: ${NBITCOIN_NETWORK:-regtest}
       API_TOKEN: ${CHARGED_API_TOKEN}
@@ -76,7 +76,7 @@ services:
 
   bitcoind:
     restart: always
-    image: nicolasdorier/docker-bitcoin:0.16.0
+    image: nicolasdorier/docker-bitcoin:0.17.0
     environment:
       BITCOIN_EXTRA_ARGS: |
         rpcport=43782
@@ -89,11 +89,10 @@ services:
     volumes:
       - "bitcoin_datadir:/data"
 
-
 volumes:
-    nginx_conf:
-    nginx_vhost:
-    nginx_html:
-    nginx_certs:
-    bitcoin_datadir:
-    charged_datadir:
+  nginx_conf:
+  nginx_vhost:
+  nginx_html:
+  nginx_certs:
+  bitcoin_datadir:
+  charged_datadir:
